@@ -3,20 +3,20 @@ import pandas as pd
 import numpy as np
 
 def descargar_datos(ticker="AAPL", inicio="2010-01-01", fin="2025-01-01"):
-    """
-    Descarga datos históricos desde Yahoo Finance
-    y calcula rendimientos logarítmicos.
-    """
-
     data = yf.download(ticker, start=inicio, end=fin)
 
-    # Validación
     if data.empty:
         raise ValueError("No se pudieron descargar datos. Revisa el ticker.")
 
-    # Seleccionar precio ajustado
-    data = data[['Adj Close']]
-    data = data.rename(columns={'Adj Close': 'Precio'})
+    
+    if 'Adj Close' in data.columns:
+        precio_col = 'Adj Close'
+    elif 'Close' in data.columns:
+        precio_col = 'Close'
+    else:
+        raise ValueError("No se encontró columna de precios válida.")
+
+    data = data[[precio_col]].rename(columns={precio_col: 'Precio'})
 
     # Rendimientos logarítmicos
     data['Returns'] = np.log(data['Precio'] / data['Precio'].shift(1))
