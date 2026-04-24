@@ -4,7 +4,7 @@ from data_download import descargar_datos
 
 st.set_page_config(page_title="Proyecto Finanzas AAPL", layout="wide")
 
-st.title("Análisis Financiero - AAPL")
+st.title("Análisis del activo financiero AAPL")
 
 st.markdown("Datos históricos de Apple Inc. desde Yahoo Finance")
 
