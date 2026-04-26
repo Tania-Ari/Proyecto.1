@@ -24,7 +24,7 @@ if st.button("Descargar datos"):
         st.subheader("Vista previa de datos")
         st.dataframe(data.head())
 
-        # 🔹 INCISO 2 - Estadísticas
+        # Inciso b)
         st.subheader("Estadísticas de los rendimientos")
 
         mean = data['Returns'].mean()
@@ -35,7 +35,7 @@ if st.button("Descargar datos"):
         st.write(f"Sesgo (Skewness): {skew:.6f}")
         st.write(f"Exceso de curtosis: {kurt:.6f}")
 
-        # 🔥 INCISO 3 - VaR y ES HISTÓRICO
+        # Inciso c) 
         st.subheader("Value at Risk y Expected Shortfall histórico")
 
         returns = data['Returns']
