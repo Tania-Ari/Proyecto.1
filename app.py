@@ -35,7 +35,7 @@ if st.button("Descargar datos"):
         kurt = returns.kurt()
 
         st.write(f"Media: {mean:.6f}")
-        st.write(f"Sesgo (Skewness): {skew:.6f}")
+        st.write(f"Sesgo: {skew:.6f}")
         st.write(f"Exceso de curtosis: {kurt:.6f}")
 
         niveles = [0.95, 0.975, 0.99]
