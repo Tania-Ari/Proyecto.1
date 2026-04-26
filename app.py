@@ -39,7 +39,7 @@ if st.button("Descargar datos"):
         kurt = data['Returns'].kurt()
 
         st.write(f"Media: {mean:.6f}")
-        st.write(f"Sesgo (Skewness): {skew:.6f}")
+        st.write(f"Sesgo: {skew:.6f}")
         st.write(f"Exceso de curtosis: {kurt:.6f}")
 
     except Exception as e:
