@@ -8,7 +8,6 @@ st.title("Análisis del activo financiero AAPL")
 
 st.markdown("Datos históricos de Apple Inc. desde Yahoo Finance")
 
-# Inputs (ya con AAPL por defecto)
 ticker = st.text_input("Activo", "AAPL")
 
 inicio = st.date_input("Fecha inicio", pd.to_datetime("2010-01-01"))
@@ -31,6 +30,17 @@ if st.button("Descargar datos"):
 
         st.subheader("Distribución de rendimientos")
         st.bar_chart(data['Returns'])
+
+        # Inciso (b) 
+        st.subheader("Estadísticas de los rendimientos")
+
+        mean = data['Returns'].mean()
+        skew = data['Returns'].skew()
+        kurt = data['Returns'].kurt()
+
+        st.write(f"Media: {mean:.6f}")
+        st.write(f"Sesgo (Skewness): {skew:.6f}")
+        st.write(f"Exceso de curtosis: {kurt:.6f}")
 
     except Exception as e:
         st.error(f"Error: {e}")
