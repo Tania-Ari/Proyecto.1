@@ -24,22 +24,23 @@ if st.button("Descargar datos"):
         st.subheader("Vista previa de datos")
         st.dataframe(data.head())
 
-        # Inciso b)
+        # 🔹 INCISO 2 - Estadísticas
         st.subheader("Estadísticas de los rendimientos")
 
-        mean = data['Returns'].mean()
-        skew = data['Returns'].skew()
-        kurt = data['Returns'].kurt()
+        returns = data['Returns']
+
+        mean = returns.mean()
+        skew = returns.skew()
+        kurt = returns.kurt()
 
         st.write(f"Media: {mean:.6f}")
-        st.write(f"Sesgo: {skew:.6f}")
+        st.write(f"Sesgo (Skewness): {skew:.6f}")
         st.write(f"Exceso de curtosis: {kurt:.6f}")
 
-        # Inciso c) 
-        st.subheader("Value at Risk y Expected Shortfall histórico")
-
-        returns = data['Returns']
         niveles = [0.95, 0.975, 0.99]
+
+        # 🔥 INCISO 3 - HISTÓRICO
+        st.subheader("Value at Risk y Expected Shortfall histórico")
 
         resultados_hist = []
 
@@ -56,7 +57,7 @@ if st.button("Descargar datos"):
         tabla_hist = pd.DataFrame(resultados_hist)
         st.table(tabla_hist)
 
-        # 🔥 INCISO 3 - VaR PARAMÉTRICO (NORMAL y t-STUDENT)
+        # 🔥 INCISO 3 - PARAMÉTRICO
         st.subheader("Value at Risk y Expected Shortfall paramétrico")
 
         mu = returns.mean()
@@ -64,22 +65,18 @@ if st.button("Descargar datos"):
 
         resultados_param = []
 
-        df = 5  # grados de libertad para t-student
+        df = 5  # grados de libertad
 
         for alpha in niveles:
             z = norm.ppf(1 - alpha)
 
-            # VaR Normal
+            # Normal
             var_normal = mu + sigma * z
-
-            # ES Normal
             es_normal = mu - sigma * (norm.pdf(z) / (1 - alpha))
 
-            # VaR t-Student
+            # t-student
             t_quantile = t.ppf(1 - alpha, df)
             var_t = mu + sigma * t_quantile
-
-            # ES t-Student
             es_t = mu - sigma * ((t.pdf(t_quantile, df) / (1 - alpha)) * ((df + t_quantile**2) / (df - 1)))
 
             resultados_param.append({
@@ -93,7 +90,30 @@ if st.button("Descargar datos"):
         tabla_param = pd.DataFrame(resultados_param)
         st.table(tabla_param)
 
-        # 🔹 Gráficas
+        # 🔥 INCISO 3 - MONTE CARLO
+        st.subheader("Value at Risk y Expected Shortfall Monte Carlo")
+
+        np.random.seed(42)
+        simulaciones = 10000
+
+        resultados_mc = []
+
+        for alpha in niveles:
+            simulados = np.random.normal(mu, sigma, simulaciones)
+
+            var_mc = np.percentile(simulados, (1 - alpha) * 100)
+            es_mc = simulados[simulados <= var_mc].mean()
+
+            resultados_mc.append({
+                "Nivel": alpha,
+                "VaR Monte Carlo": var_mc,
+                "ES Monte Carlo": es_mc
+            })
+
+        tabla_mc = pd.DataFrame(resultados_mc)
+        st.table(tabla_mc)
+
+        # 🔹 GRÁFICAS
         st.subheader("Serie de precios")
         st.line_chart(data['Precio'])
 
