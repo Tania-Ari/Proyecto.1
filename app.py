@@ -4,6 +4,7 @@ import numpy as np
 from scipy.stats import norm, t
 from data_download import descargar_datos
 
+# Inciso a 
 st.set_page_config(page_title="Proyecto Finanzas AAPL", layout="wide")
 
 st.title("Análisis del activo financiero AAPL")
@@ -24,7 +25,7 @@ if st.button("Descargar datos"):
         st.subheader("Vista previa de datos")
         st.dataframe(data.head())
 
-        # 🔹 INCISO 2 - Estadísticas
+        # Inciso b 
         st.subheader("Estadísticas de los rendimientos")
 
         returns = data['Returns']
@@ -39,7 +40,7 @@ if st.button("Descargar datos"):
 
         niveles = [0.95, 0.975, 0.99]
 
-        # 🔥 INCISO 3 - HISTÓRICO
+        # Inciso c historico
         st.subheader("Value at Risk y Expected Shortfall histórico")
 
         resultados_hist = []
@@ -57,7 +58,7 @@ if st.button("Descargar datos"):
         tabla_hist = pd.DataFrame(resultados_hist)
         st.table(tabla_hist)
 
-        # 🔥 INCISO 3 - PARAMÉTRICO
+        # Inciso c parametrico
         st.subheader("Value at Risk y Expected Shortfall paramétrico")
 
         mu = returns.mean()
@@ -70,11 +71,11 @@ if st.button("Descargar datos"):
         for alpha in niveles:
             z = norm.ppf(1 - alpha)
 
-            # Normal
+            
             var_normal = mu + sigma * z
             es_normal = mu - sigma * (norm.pdf(z) / (1 - alpha))
 
-            # t-student
+    
             t_quantile = t.ppf(1 - alpha, df)
             var_t = mu + sigma * t_quantile
             es_t = mu - sigma * ((t.pdf(t_quantile, df) / (1 - alpha)) * ((df + t_quantile**2) / (df - 1)))
@@ -90,7 +91,7 @@ if st.button("Descargar datos"):
         tabla_param = pd.DataFrame(resultados_param)
         st.table(tabla_param)
 
-        # 🔥 INCISO 3 - MONTE CARLO
+        # Inciso c Monte Carlo
         st.subheader("Value at Risk y Expected Shortfall Monte Carlo")
 
         np.random.seed(42)
@@ -113,7 +114,7 @@ if st.button("Descargar datos"):
         tabla_mc = pd.DataFrame(resultados_mc)
         st.table(tabla_mc)
 
-        # 🔹 GRÁFICAS
+        
         st.subheader("Serie de precios")
         st.line_chart(data['Precio'])
 
