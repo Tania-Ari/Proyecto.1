@@ -114,6 +114,25 @@ if st.button("Descargar datos"):
         tabla_mc = pd.DataFrame(resultados_mc)
         st.table(tabla_mc)
 
+        # Inciso f VaR con volatilidad movil
+        st.subheader("VaR con volatilidad móvil")
+
+        sigma_t = returns.rolling(window=252).std()
+
+        alphas = [0.05, 0.01]
+
+        var_rolling = pd.DataFrame(index=data.index)
+
+        for alpha in alphas:
+            q_alpha = norm.ppf(alpha)  
+
+            var_t = q_alpha * sigma_t 
+
+            var_rolling[f'VaR_{int((1-alpha)*100)}%'] = var_t
+
+        st.line_chart(var_rolling.dropna())
+
+
         
         st.subheader("Serie de precios")
         st.line_chart(data['Precio'])
