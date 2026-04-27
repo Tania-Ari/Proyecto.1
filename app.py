@@ -113,7 +113,88 @@ if st.button("Descargar datos"):
 
         tabla_mc = pd.DataFrame(resultados_mc)
         st.table(tabla_mc)
+       # INCISO d
+        # =========================
+        
+        st.subheader("VaR y ES con Rolling Window (252 días)")
+        
+        window = 252
+        niveles = [0.95, 0.99]
+        
+        # Listas para guardar resultados
+        resultados = {
+            "Returns": [],
+            "VaR_hist_95": [],
+            "ES_hist_95": [],
+            "VaR_hist_99": [],
+            "ES_hist_99": [],
+            "VaR_param_95": [],
+            "ES_param_95": [],
+            "VaR_param_99": [],
+            "ES_param_99": []
+        }
+        
+        for t in range(window, len(returns)):
+            data_window = returns[t-window:t]
+        
+            mu = np.mean(data_window)
+            sigma = np.std(data_window)
+        
+            # Retorno real (el que se quiere predecir)
+            resultados["Returns"].append(returns.iloc[t])
+        
+            for alpha in niveles:
+                # HISTÓRICO
+                var_hist = np.percentile(data_window, (1 - alpha) * 100)
+                es_hist = data_window[data_window <= var_hist].mean()
+        
+                # PARAMÉTRICO (normal)
+                z = norm.ppf(1 - alpha)
+                var_param = mu + sigma * z
+                es_param = mu - sigma * (norm.pdf(z) / (1 - alpha))
+        
+                if alpha == 0.95:
+                    resultados["VaR_hist_95"].append(var_hist)
+                    resultados["ES_hist_95"].append(es_hist)
+                    resultados["VaR_param_95"].append(var_param)
+                    resultados["ES_param_95"].append(es_param)
+        
+                elif alpha == 0.99:
+                    resultados["VaR_hist_99"].append(var_hist)
+                    resultados["ES_hist_99"].append(es_hist)
+                    resultados["VaR_param_99"].append(var_param)
+                    resultados["ES_param_99"].append(es_param)
+        
+        # Convertir a DataFrame
+        df_rolling = pd.DataFrame(resultados)
+        
+        # recuperar fechas
+        df_rolling.index = returns.index[window:]
+        
+        # =========================
+        # GRÁFICA PRINCIPAL
+        # =========================
+        
+        st.subheader("Serie de tiempo: Returns, VaR y ES")
+        
+        st.line_chart(df_rolling)
+        
+        # =========================
+        # Grafica mas clara donde muestra Var vs Returns 
+        # =========================
+        
+        st.subheader("VaR vs Returns (más claro)")
+        
+        st.line_chart(df_rolling[[
+            "Returns",
+            "VaR_hist_95", "VaR_hist_99",
+            "VaR_param_95", "VaR_param_99"
+        ]])
+        
+        st.write("Últimos valores:")
+        st.dataframe(df_rolling.tail())
 
+        
         # Inciso f VaR con volatilidad movil
         st.subheader("VaR con volatilidad móvil")
 
