@@ -7,7 +7,7 @@
 Despues de la descarga de Datos que se realizo antes, calculamos la Media: 0.000970, el Sesgo: -0.235001 y Exceso de curtosis: 5.454364.
 
 La media representa el rendimiento promedio diario del activo. En este caso, se obtiene un valor positivo (0.000970), lo que indica que, en promedio, el activo presenta una ligera tendencia al alza.
-El Sesgo es una medida de asimetría de la distribución, para una normal β = 0. Sin embargo nosotros calculamos β=-0.235001 por lo que sabemos β < 0 indica que la cola izquierda es más larga y más pesada que la derecha.
+El Sesgo es una medida de asimetría de la distribución, para una normal β = 0. Sin embargo nosotros calculamos β=-0.235001 por lo que sabemos β < 0 indica que la cola izquierda es más larga y más pesada que la derecha. Esto quiere decir que el activo tiene mayor probabilidad de grandes pérdidas y sufrir caídas abruptas con mayor frecuencia
 Tenemos tambien que la curtosis es una medida de concentración en la mediana con respecto a las colas. Para una distribución normal κ = 3. Pero nuestra aplicacion calculo que tenemos un caso donde κ > 3 lo indica una distribución leptucurtica con menor concentración en la mediana, y colas pesadas, lo que implica una mayor probabilidad de eventos extremos.
 
 Estos resultados sugieren que los rendimientos no siguen una distribución normal, especialmente debido a la presencia de colas pesadas. Cosa que podemos comprobar al observar nuestro Histograma de Rendimientos.
