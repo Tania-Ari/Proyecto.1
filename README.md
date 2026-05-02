@@ -1,6 +1,6 @@
 # Proyecto.1
 (a) Descripcion del Activo
-Se eligio el activo financiero Apple (AAPL) por la popularidad que ha ganado en los ultimos años y el crecimiento tan solido que ha creado gracias a su innovación y a la alta demanda que ha tenido. Por ello, consideramos que es un activo financiero muy atractivo para analizar.
+Se eligio el activo financiero Apple (AAPL) por la popularidad que ha ganado en los ultimos años y el crecimiento tan solido que ha creado gracias a su innovación y a la alta demanda que ha tenido. Por ello, consideramos que es un activo financiero muy atractivo para analizar.Además que cuenta con 3 billones de capitalizacion de mercado y un volumen diario de aproximadamente de 12, 200 millones de dolares, colocandola dentro de las 7 magnificas
 
 (b) Rendimientos Diarios
 
