@@ -5,17 +5,12 @@ from scipy.stats import norm, t
 import matplotlib.pyplot as plt
 from data_download import descargar_datos
 
-# ---------------------------------------------------
-# CONFIG
-# ---------------------------------------------------
 st.set_page_config(page_title="Proyecto Finanzas AAPL", layout="wide")
 
 st.title("Análisis del activo financiero AAPL")
 st.markdown("Proyecto de Métodos Cuantitativos en Finanzas")
 
-# ---------------------------------------------------
-# FUNCION VIOLACIONES
-# ---------------------------------------------------
+
 def calcular_violaciones(df_rolling, returns_col="Returns"):
 
     metricas = [
@@ -51,16 +46,12 @@ def calcular_violaciones(df_rolling, returns_col="Returns"):
 
     return pd.DataFrame(resultados)
 
-# ---------------------------------------------------
-# INPUTS
-# ---------------------------------------------------
+
 ticker = st.text_input("Activo", "AAPL")
 inicio = st.date_input("Fecha inicio", pd.to_datetime("2010-01-01"))
 fin = st.date_input("Fecha fin", pd.to_datetime("2025-01-01"))
 
-# ---------------------------------------------------
-# BOTON
-# ---------------------------------------------------
+
 if st.button("Descargar datos"):
 
     try:
@@ -69,9 +60,9 @@ if st.button("Descargar datos"):
 
         st.success("Datos descargados correctamente")
 
-        # =====================================================
-        # INCISO A
-        # =====================================================
+      
+        # Inciso A
+      
         with st.container():
 
             st.header("Inciso (a): Datos descargados")
@@ -81,9 +72,9 @@ if st.button("Descargar datos"):
 
         st.divider()
 
-        # =====================================================
-        # INCISO B
-        # =====================================================
+   
+        # Inciso B
+    
         with st.container():
 
             st.header("Inciso (b): Rendimientos y estadísticas")
@@ -114,9 +105,9 @@ if st.button("Descargar datos"):
 
         st.divider()
 
-        # =====================================================
-        # INCISO C
-        # =====================================================
+
+        # Inciso C
+       
         with st.container():
 
             st.header("Inciso (c): VaR y ES muestra completa")
@@ -194,9 +185,9 @@ if st.button("Descargar datos"):
 
         st.divider()
 
-        # =====================================================
-        # INCISO D
-        # =====================================================
+     
+        # Inciso D
+     
         with st.container():
 
             st.header("Inciso (d): Rolling Window 252")
@@ -253,9 +244,8 @@ if st.button("Descargar datos"):
 
         st.divider()
 
-        # =====================================================
-        # INCISO E
-        # =====================================================
+        # Inciso E
+    
         with st.container():
 
             st.header("Inciso (e): Violaciones")
@@ -266,10 +256,8 @@ if st.button("Descargar datos"):
             st.bar_chart(tabla.set_index("Medida de Riesgo"))
 
         st.divider()
-
-        # =====================================================
-        # INCISO F
-        # =====================================================
+     # Inciso F
+       
         with st.container():
 
             st.header("Inciso (f): VaR con volatilidad móvil")
