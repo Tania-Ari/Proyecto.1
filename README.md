@@ -1,12 +1,4 @@
 # Proyecto.1
-
-Integrantes del equipo:
-Bautista Tellez Tania Ariadna
-Blanco Soto Emanuel
-Guillen Carmona Jose Maria 
-Hernandez Garcia Angel
-
-
 (a) Descripcion del Activo
 Se eligio el activo financiero Apple (AAPL) por la popularidad que ha ganado en los ultimos años y el crecimiento tan solido que ha creado gracias a su innovación y a la alta demanda que ha tenido. Por ello, consideramos que es un activo financiero muy atractivo para analizar.
 
